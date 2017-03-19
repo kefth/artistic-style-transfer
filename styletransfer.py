@@ -17,24 +17,25 @@ from keras.applications.vgg16 import VGG16
 from scipy.optimize import fmin_l_bfgs_b
 
 # Set the size of the images to process.
-width = 512
+width = 512 #773 #512
 height = 512
 
 # Set the weight for content and style loss. Variation weight is for smoothing
 # final output image
 content_weight = 0.025
-style_weight = 5.0
-total_variation_weight = 1.0
+style_weight = 5
+total_variation_weight = 2.0 #1
 
 # Load the content image, resize it
 content_image_path = 'data/elephant.jpg'
 content_image = Image.open(content_image_path)
-content_image = content_image.resize((height, width))
-
+content_image = content_image.resize((width, height))
+#content_image.show()
 # Load the style image and resize it
-style_image_path = 'data/style/gothic.jpg'
+style_image_path = 'data/style/block.jpg'
 style_image = Image.open(style_image_path)
-style_image = style_image.resize((height, width))
+style_image = style_image.resize((width, height))
+#style_image.show()
 
 # Add an extra dimension to content and style images to match the dimensions
 # used by the backend i.e. [1, 512, 512, 3]
@@ -175,7 +176,7 @@ evaluator = Evaluator()
 
 x = np.random.uniform(0, 255, (1, height, width, 3)) - 128.
 
-iterations = 1
+iterations = 10
 
 for i in range(iterations):
     print('Start of iteration', i)
