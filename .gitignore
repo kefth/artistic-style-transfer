@@ -90,3 +90,5 @@ ENV/
 
 # other
 data/myphotos
+out*
+err*

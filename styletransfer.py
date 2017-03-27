@@ -17,22 +17,22 @@ from keras.applications.vgg16 import VGG16
 from scipy.optimize import fmin_l_bfgs_b
 
 # Set the size of the images to process.
-width = 512 #773 #512
-height = 512
+width = 350 #512
+height = 350
 
 # Set the weight for content and style loss. Variation weight is for smoothing
 # final output image
-content_weight = 0.025
-style_weight = 5
-total_variation_weight = 2.0 #1
+content_weight = 5 #0.025
+style_weight = 100 #5
+total_variation_weight = 0.6 #1
 
 # Load the content image, resize it
-content_image_path = 'data/elephant.jpg'
+content_image_path = 'data/myphotos/peter.jpg'
 content_image = Image.open(content_image_path)
 content_image = content_image.resize((width, height))
 #content_image.show()
 # Load the style image and resize it
-style_image_path = 'data/style/block.jpg'
+style_image_path = 'data/style/vgh.jpg'
 style_image = Image.open(style_image_path)
 style_image = style_image.resize((width, height))
 #style_image.show()
@@ -91,7 +91,7 @@ loss = K.variable(0.)
 def content_loss(content, combination):
     return K.sum(K.square(combination - content))
 
-layer_features = layers['block2_conv2']
+layer_features = layers['block4_conv2']
 content_image_features = layer_features[0, :, :, :]
 combination_features = layer_features[2, :, :, :]
 
@@ -177,7 +177,6 @@ evaluator = Evaluator()
 x = np.random.uniform(0, 255, (1, height, width, 3)) - 128.
 
 iterations = 10
-
 for i in range(iterations):
     print('Start of iteration', i)
     start_time = time.time()
