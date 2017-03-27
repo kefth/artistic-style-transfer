@@ -17,17 +17,17 @@ from keras.applications.vgg16 import VGG16
 from scipy.optimize import fmin_l_bfgs_b
 
 # Set the size of the images to process.
-width = 350 #512
-height = 350
+width = 773 #512
+height = 512
 
 # Set the weight for content and style loss. Variation weight is for smoothing
 # final output image
-content_weight = 5 #0.025
-style_weight = 100 #5
-total_variation_weight = 0.6 #1
+content_weight = 5 #5
+style_weight = 100 #100
+total_variation_weight = 0.6 #0.6
 
 # Load the content image, resize it
-content_image_path = 'data/myphotos/peter.jpg'
+content_image_path = 'data/myphotos/2.jpg'
 content_image = Image.open(content_image_path)
 content_image = content_image.resize((width, height))
 #content_image.show()
