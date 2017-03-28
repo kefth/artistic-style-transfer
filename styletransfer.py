@@ -23,8 +23,8 @@ height = 750
 # Set the weight for content and style loss. Variation weight is for smoothing
 # final output image
 content_weight = 5 #5
-style_weight = 200 #100
-total_variation_weight = 1 #0.6
+style_weight = 80 #100
+total_variation_weight = 10 #0.6
 
 # Load the content image, resize it
 content_image_path = 'data/myphotos/1.jpg'
