@@ -22,17 +22,17 @@ height = 750
 
 # Set the weight for content and style loss. Variation weight is for smoothing
 # final output image
-content_weight = 5 #5
-style_weight = 80 #100
+content_weight = 1 #5
+style_weight = 100 #100
 total_variation_weight = 10 #0.6
 
 # Load the content image, resize it
-content_image_path = 'data/myphotos/1.jpg'
+content_image_path = 'data/myphotos/6.jpg'
 content_image = Image.open(content_image_path)
 content_image = content_image.resize((width, height))
 #content_image.show()
 # Load the style image and resize it
-style_image_path = 'data/style/picasso.jpg'
+style_image_path = 'data/style/rickmorty.jpg'
 style_image = Image.open(style_image_path)
 style_image = style_image.resize((width, height))
 #style_image.show()
@@ -91,7 +91,7 @@ loss = K.variable(0.)
 def content_loss(content, combination):
     return K.sum(K.square(combination - content))
 
-layer_features = layers['block4_conv2']
+layer_features = layers['block2_conv2']
 content_image_features = layer_features[0, :, :, :]
 combination_features = layer_features[2, :, :, :]
 
@@ -176,7 +176,7 @@ evaluator = Evaluator()
 
 x = np.random.uniform(0, 255, (1, height, width, 3)) - 128.
 
-iterations = 10
+iterations = 50
 for i in range(iterations):
     print('Start of iteration', i)
     start_time = time.time()
