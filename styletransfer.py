@@ -22,17 +22,17 @@ height = 750
 
 # Set the weight for content and style loss. Variation weight is for smoothing
 # final output image
-content_weight = 1 #5
-style_weight = 100 #100
+content_weight = 0.025 #5
+style_weight = 5 #100
 total_variation_weight = 10 #0.6
 
 # Load the content image, resize it
-content_image_path = 'data/myphotos/6.jpg'
+content_image_path = 'data/myphotos/8.JPG'
 content_image = Image.open(content_image_path)
 content_image = content_image.resize((width, height))
 #content_image.show()
 # Load the style image and resize it
-style_image_path = 'data/style/rickmorty.jpg'
+style_image_path = 'data/style/gothic.jpg'
 style_image = Image.open(style_image_path)
 style_image = style_image.resize((width, height))
 #style_image.show()
