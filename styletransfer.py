@@ -10,29 +10,34 @@ import time
 from PIL import Image
 import numpy as np
 
-from keras import backend as K
-from keras.models import Model
-from keras.applications.vgg16 import VGG16
+
+# from keras import backend as K
+# from keras.models import Model
+# from keras.applications.vgg16 import VGG16
+
+from tensorflow.contrib.keras import backend as K
+from tensorflow.contrib.keras import models
+from tensorflow.contrib.keras import applications
 
 from scipy.optimize import fmin_l_bfgs_b
 
 # Set the size of the images to process.
-width = 500 #512
-height = 750
+width = 380 #512
+height = 380
 
 # Set the weight for content and style loss. Variation weight is for smoothing
 # final output image
 content_weight = 0.025 #5
 style_weight = 5 #100
-total_variation_weight = 10 #0.6
+total_variation_weight = 250 #0.6
 
 # Load the content image, resize it
-content_image_path = 'data/myphotos/8.JPG'
+content_image_path = 'data/myphotos/1.jpg'
 content_image = Image.open(content_image_path)
 content_image = content_image.resize((width, height))
 #content_image.show()
 # Load the style image and resize it
-style_image_path = 'data/style/gothic.jpg'
+style_image_path = 'data/style/scream.jpg'
 style_image = Image.open(style_image_path)
 style_image = style_image.resize((width, height))
 #style_image.show()
@@ -75,7 +80,7 @@ input_tensor = K.concatenate([content_image,
 
 # Load the VGG16 model from Keras. We are only interested in getting the features
 # from the different layers hence we omit the dense layers at the top.
-model = VGG16(input_tensor=input_tensor, weights='imagenet',
+model = applications.VGG16(input_tensor=input_tensor, weights='imagenet',
               include_top=False)
 
 # Store layers of the model. We'll need that to refer to the layers we want to
@@ -176,7 +181,8 @@ evaluator = Evaluator()
 
 x = np.random.uniform(0, 255, (1, height, width, 3)) - 128.
 
-iterations = 50
+
+iterations = 200
 for i in range(iterations):
     print('Start of iteration', i)
     start_time = time.time()
@@ -185,6 +191,9 @@ for i in range(iterations):
     print('Current loss value:', min_val)
     end_time = time.time()
     print('Iteration %d completed in %ds' % (i, end_time - start_time))
+
+
+K.clear_session() # Otherwise there is an error for session
 
 x = x.reshape((height, width, 3))
 x = x[:, :, ::-1]
